@@ -1,0 +1,30 @@
+version: "3"
+
+services:
+  ticklist-core:
+    image: matthaeusheer/ticklist/core-0.0.1
+    build: ./backend/core
+    ports:
+      - "8000:8080"
+    networks:
+      - backend
+  ticklist-analytics:
+    image: matthaeusheer/ticklist/analytics-0.0.1
+    build: ./backend/analytics
+    ports:
+      - "8001:8080"
+    networks:
+      - backend
+  ticklist-frontend:
+    image: matthaeusheer/ticklist/frontend-0.0.1
+    build: ./frontend
+    ports:
+      - "4200:4200"
+    networks:
+      - frontend
+
+networks:
+  backend:
+    driver: bridge
+  frontend:
+    driver: bridge
