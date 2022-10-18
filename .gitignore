@@ -1,0 +1,13 @@
+# Global .gitignore
+#
+# For the individual services use the .gitignore files within the service.
+# This file is for general purposes.
+
+# IDE's
+.idea
+
+# Infrastructure
+.terraform**
+
+
+
