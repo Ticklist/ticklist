@@ -17,7 +17,7 @@ services:
       - backend
   ticklist-frontend:
     image: matthaeusheer/ticklist/frontend-0.0.1
-    build: ./frontend
+    build: ./frontend/app
     ports:
       - "4200:4200"
     networks:
