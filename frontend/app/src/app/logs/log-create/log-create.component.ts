@@ -22,6 +22,12 @@ export class LogCreateComponent implements OnInit, OnDestroy {
     });
   }
 
+  onSave() {
+    // put values into log
+    console.log(this.log);
+    this.createLog();
+  }
+
   createLog(): void {
     this.logService.createAndStorePost(this.log);
     // handle error of unsuccessfull post via errorSub in html -> ngif=

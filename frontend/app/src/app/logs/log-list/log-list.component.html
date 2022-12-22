@@ -2,7 +2,7 @@
   <h1>All places you have been</h1>
   <p *ngIf="logs.length < 1">No logs available</p>
   <div class="grid grid-cols-3" *ngIf="logs.length >= 1">
-    <div class="max-w-sm rounded overflow-hidden shadow-lg" *ngFor="let log of logs">
+    <div class="max-w-sm rounded overflow-hidden shadow-lg m-1" *ngFor="let log of logs">
       <img class="w-full" src="./assets/skitour.jpg">
       <div class="px-6 py-4">
         <div class="font-bold text-xl mb-2">{{ log.summit }}</div>

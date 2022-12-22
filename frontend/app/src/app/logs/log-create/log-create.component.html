@@ -1,29 +1,54 @@
-<div style="width: 500px; margin: auto;">
-    <div class="submit-form">
-        <div *ngIf="!submitted">
-            <div class="form-group">
-                <label for="summit">summit</label>
-                <input type="text" class="form-control" id="summit" required [(ngModel)]="log.summit" name="summit" />
+<div class="m-5">
+    <form>
+        <div>
+            <div class="relative z-0 mb-6 w-full group">
+                <input type="text" name="summit" id="summit" [(ngModel)]="log.summit"
+                    class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                    placeholder="" required />
+                <label for="summit"
+                    class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Summit</label>
             </div>
-
-            <div class="form-group">
-                <label for="comment">comment</label>
-                <input class="form-control" id="comment" required [(ngModel)]="log.comment"
-                    name="comment" />
-            </div>
-
-            <div class="form-group">
-                <label for="date">date</label>
-                <input class="form-control" id="date" required [(ngModel)]="log.date"
-                    name="date" />
-            </div>
-
-            <button (click)="createLog()" class="btn btn-success">Create</button>
         </div>
-
-        <div *ngIf="submitted">
-            <h3>You successfully created a product!</h3>
-            <button class="btn btn-success" (click)="newLog()">New..</button>
+        <div>
+            <div class="relative z-0 mb-6 w-full group">
+                <input type="text" name="people" id="people" [(ngModel)]="log.people"
+                    class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                    placeholder="" required />
+                <label for="people"
+                    class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">People</label>
+            </div>
         </div>
+        <div>
+            <div class="relative z-0 mb-6 w-full group">
+                <input type="text" name="date" id="date" [(ngModel)]="log.date"
+                    class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                    placeholder="" required />
+                <label for="date"
+                    class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Date</label>
+            </div>
+        </div>
+        <div>
+            <label for="comment" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your
+    comment</label>
+            <textarea id="comment" name="comment" rows="4" [(ngModel)]="log.comment"
+                class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                placeholder="Leave a comment..."></textarea>
+        </div>
+        <div>
+            <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="user_avatar">Upload
+                file</label>
+            <input
+                class="block w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+                aria-describedby="user_avatar_help" id="user_avatar" type="file">
+            <div class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="user_avatar_help">A picture of your trip</div>
+        </div>
+    </form>
+
+    <div class="mt-5">
+        <button 
+            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+            (click)="onSave()">
+            save
+        </button>
     </div>
 </div>
