@@ -1,40 +1,34 @@
-<div class="list row">
-    <div class="col-md-6">
-      <h4>Product List</h4>
-      <ul class="list-group">
-        <li
-          class="list-group-item"
-          *ngFor="let log of logs; let i = index"
-          [class.active]="i == currentIndex"
-          (click)="setCurrentLog(log, i)"
-        >
-  
-        </li>
-      </ul>
-    </div>
-    <div class="col-md-6">
-      <div *ngIf="currentLog">
-        <h4>Product</h4>
-        <div>
-          <label><strong>Summit:</strong></label> 
-        </div>
-        <div>
-          <label><strong>Comment:</strong></label>
-  
-        </div>
-        <div>
-          <label><strong>Date:</strong></label>
-  
-        </div>
-  
-        <a class="badge badge-warning" routerLink="/logs/">
-          Edit
-        </a>
+<div>
+  <h4>Product List</h4>
+  <p *ngIf="logs.length < 1">No logs available</p>
+  <div class="list-group" *ngIf="logs.length >= 1">
+    <a href="#" class="list-group-item list-group-item-action flex-column align-items-start active"
+      *ngFor="let log of logs">
+      <div class="d-flex w-100 justify-content-between">
+        <h5 class="mb-1">{{ log.summit }}</h5>
+        <small>{{ log.date }}</small>
       </div>
-  
-      <div *ngIf="!currentLog">
-        <br />
-        <p>Please click on a log</p>
-      </div>
-    </div>
+      <p class="mb-1">{{ log.comment }}</p>
+      <small>{{ log.people }}</small>
+    </a>
   </div>
+</div>
+
+<div>
+<h4>Product List</h4>
+<p *ngIf="logs.length < 1">No logs available</p>
+<div class="p-10" *ngIf="logs.length >= 1">
+<div class="max-w-sm rounded overflow-hidden shadow-lg" *ngFor="let log in logs">
+  <img class="w-full" src="/skitour.jpg">
+  <div class="px-6 py-4">
+    <div class="font-bold text-xl mb-2">{{ log.summit }}</div>
+    <p class="text-gray-700 text-base">{{ log.comment }}</p>
+  </div>
+  <div class="px-6 pt-4 pb-2">
+    <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#Skitour</span>
+    <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#Winter</span>
+    <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#Beginner</span>
+  </div>
+</div>
+</div>
+</div>

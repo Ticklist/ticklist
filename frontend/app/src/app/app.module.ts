@@ -9,7 +9,11 @@ import { LogDetailsComponent } from './logs/log-details/log-details.component';
 import { LogListComponent } from './logs/log-list/log-list.component';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-
+import { AuthGuardService } from './core/auth/auth-guard.service';
+import { AuthService } from './core/auth/auth.service';
+import { LogsService } from './services/logs.service';
+import { CommonModule } from '@angular/common';
+CommonModule
 @NgModule({
   declarations: [
     AppComponent,
@@ -22,9 +26,10 @@ import { HttpClientModule } from '@angular/common/http';
     AppRoutingModule,
     BrowserAnimationsModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    CommonModule
   ],
-  providers: [],
+  providers: [AuthGuardService, AuthService, LogsService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

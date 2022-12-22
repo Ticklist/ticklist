@@ -1,44 +1,30 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { LogsService } from 'src/app/services/logs.service';
+import { Log } from 'src/app/shared/models/log';
 
 @Component({
   selector: 'app-log-create',
   templateUrl: './log-create.component.html',
   styleUrls: ['./log-create.component.scss']
 })
-export class LogCreateComponent implements OnInit {
-  log = {
-    people: '',
-    comment: '',
-    summit: '',
-    date: '',
-    tags: new Array()
-  };
+export class LogCreateComponent implements OnInit, OnDestroy {
+  log: Log = new Log('', '', '', '');
   submitted = false;
+  error: null | string = null;
+  private errorSub!: Subscription;
 
-  constructor(private logsService: LogsService) { }
+  constructor(private logService: LogsService) { }
 
   ngOnInit(): void {
+    this.errorSub = this.logService.error.subscribe( errorMessage => {
+      this.error = errorMessage;
+    });
   }
 
   createLog(): void {
-    const data = {
-      people: this.log.people,
-      comment: this.log.comment,
-      summit: this.log.summit,
-      date: this.log.date,
-      tags: this.log.tags
-    };
-
-    this.logsService.create(data)
-      .subscribe(
-        response => {
-          console.log(response);
-          this.submitted = true;
-        },
-        error => {
-          console.log(error);
-        });
+    this.logService.createAndStorePost(this.log);
+    // handle error of unsuccessfull post via errorSub in html -> ngif=
   }
 
   newLog(): void {
@@ -47,9 +33,11 @@ export class LogCreateComponent implements OnInit {
       people: 'Mättu FE',
       comment: 'Super',
       summit: 'Mt Fuji',
-      date: '12-12-2002',
-      tags: new Array("Skitour","Beginner")
+      date: '12-12-2002'
     };
   }
 
+  ngOnDestroy(): void {
+    this.errorSub.unsubscribe();
+  }
 }

@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { LogsService } from 'src/app/services/logs.service';
 import { Log } from 'src/app/shared/models/log';
 
@@ -7,36 +8,43 @@ import { Log } from 'src/app/shared/models/log';
   templateUrl: './log-list.component.html',
   styleUrls: ['./log-list.component.scss']
 })
-export class LogListComponent implements OnInit {
+export class LogListComponent implements OnInit, OnDestroy {
 
   currentLog = null;
   currentIndex = -1;
   name = '';
   logs: Log[] = [];
+  isFetching = false;
+  error: string | null = null;
+  private errorSub!: Subscription; //'!' at end ignores that it is not initialized. Else ts motzes
 
-  constructor(
-      private logService: LogsService
-    ) { }
+  constructor(private logService: LogsService) { }
 
   ngOnInit(): void {
-    this.readLogs();
+    this.errorSub = this.logService.error.subscribe( errorMessage => {
+      this.error = errorMessage;
+    });
+    this.fetchLogs();
   }
 
-  readLogs(): void {
-    this.logService.readAll()
-    .subscribe(
-      data => {
-        //this.logs = data;
-        console.log("Hello world");
+  fetchLogs() {
+    this.isFetching = true;
+    this.logService.fetchLogsGet()
+    .subscribe({ 
+      next: (data => {
         console.log(data);
-      },
-      error => {
-        console.log(error);
-      });    
+        this.logs = data;
+        this.isFetching = false;
+      }), 
+      error: (error => {
+        console.log(error)
+        this.clearLogList()
+      })
+    });
   }
 
   refresh(): void {
-    this.readLogs();
+    this.fetchLogs();
     this.currentLog = null;
     this.currentIndex = -1;
   }
@@ -46,4 +54,15 @@ export class LogListComponent implements OnInit {
     this.currentIndex = index;
   }
 
+  clearLogList() {
+    this.currentLog = null;
+    this.currentIndex = -1;
+    this.name = '';
+    this.logs = [];
+    this.isFetching = false;
+  }
+
+  ngOnDestroy(): void {
+    this.errorSub.unsubscribe();
+  }
 }

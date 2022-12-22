@@ -1,35 +1,41 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { map, Observable } from 'rxjs';
+import { map, Subject } from 'rxjs';
 import { Log } from '../shared/models/log';
 
-const baseURL = 'http://localhost:8080/api';
 
-@Injectable({
-  providedIn: 'root'
-})
+const serverUrl = 'http://localhost:8080/api';
+
+@Injectable({providedIn: 'root'})
 export class LogsService {
 
-  constructor(private httpClient: HttpClient) {
-   }
+  error = new Subject<string>();
 
-  readAll(): Observable<Log[]> {
-    return this.httpClient.get<Log[]>(baseURL);
+  constructor(private http: HttpClient) {}
+
+  createAndStorePost(data: Log) {
+    this.http.post<{id: string}>(
+        serverUrl,
+        data
+    ).subscribe( responseData => {
+        console.log(responseData)
+    },
+    error => {
+      this.error.next('Data failed to create or store with error: ' + error.message);
+    });
   }
 
-  create(data: any): Observable<any> {
-    return this.httpClient.post(baseURL, data);
+  fetchLogsGet() {
+      return this.http.get<Log[]>(
+          serverUrl
+      ).pipe(
+          map( responseData => {
+              const getArray: Log[] = [];
+              for(const item in responseData) {
+                  getArray.push({...responseData[item]});
+              }
+              return getArray;
+          })
+      )
   }
-
-  // update(id, data): Observable<any> {
-  //   return this.httpClient.put(`${baseURL}/${id}`, data);
-  // }
-
-  // delete(id): Observable<any> {
-  //   return this.httpClient.delete(`${baseURL}/${id}`);
-  // }
-
-  // deleteAll(): Observable<any> {
-  //   return this.httpClient.delete(baseURL);
-  // }
 }
