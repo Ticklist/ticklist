@@ -4,6 +4,7 @@ import { map, Subject } from 'rxjs';
 import { Log } from '../shared/models/log';
 
 
+
 const serverUrl = 'http://localhost:8080/api';
 
 @Injectable({providedIn: 'root'})
@@ -11,7 +12,9 @@ export class LogsService {
 
   error = new Subject<string>();
 
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    ) {}
 
   createAndStorePost(data: Log) {
     this.http.post<{id: string}>(
