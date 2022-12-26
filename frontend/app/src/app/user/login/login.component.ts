@@ -7,7 +7,8 @@ import { NgForm } from '@angular/forms';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-  @ViewChild('f', { static: false }) signUpForm!: NgForm;
+  @ViewChild('authForm', { static: false }) signUpForm!: NgForm;
+  isLoginMode:boolean = true; // false = signUpTrue
 
   constructor() { }
 
@@ -16,5 +17,9 @@ export class LoginComponent implements OnInit {
 
   onSubmit() {
     console.log(this.signUpForm.form.value)
+  }
+
+  onSwitchMode() {
+    this.isLoginMode = !this.isLoginMode;
   }
 }
