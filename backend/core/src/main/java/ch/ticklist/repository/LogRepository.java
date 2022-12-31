@@ -1,6 +1,6 @@
 package ch.ticklist.repository;
 
-import ch.ticklist.model.LogEntry;
+import ch.ticklist.model.Log;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
@@ -8,12 +8,13 @@ import java.util.Arrays;
 import java.util.List;
 
 @Repository
-public class LogDataRepository {
+public class LogRepository {
 
-    List<LogEntry> streams = new ArrayList<>();
+    List<Log> streams = new ArrayList<>();
 
-    public LogDataRepository() {
-        streams.add( LogEntry.builder()
+    public LogRepository() {
+        streams.add( 
+            Log.builder()
                 .people("hans testli")
                 .summit("Chasseral")
                 .date("2022-01-01")
@@ -24,11 +25,11 @@ public class LogDataRepository {
         );
     }
 
-    public List<LogEntry> findAll() {
+    public List<Log> findAll() {
         return streams;
     }
 
-    public void add(LogEntry log) {
+    public void add(Log log) {
         streams.add(log);
     }
 }

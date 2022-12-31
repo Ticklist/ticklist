@@ -7,7 +7,7 @@ import java.util.List;
 
 @Data
 @Builder
-public class LogEntry {
+public class Log {
     private String people;
     private String comment;
     private String summit;
