@@ -10,6 +10,8 @@ import java.util.List;
 @Repository
 public class LogRepository {
 
+    // TODO: connect with database
+
     List<Log> streams = new ArrayList<>();
 
     public LogRepository() {
